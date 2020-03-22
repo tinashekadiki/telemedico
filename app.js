@@ -1,41 +1,54 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const passport = require('passport');
+const mongoose = require('mongoose');
+const config = require('./config/database');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// Connect To Database
+mongoose.connect(config.database);
 
-var app = express();
+// On Connection
+mongoose.connection.on('connected', () => {
+  console.log('Connected to database '+config.database);
+});
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+// On Error
+mongoose.connection.on('error', (err) => {
+  console.log('Database error: '+err);
+});
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+const app = express();
+
+const users = require('./routes/users');
+const patients = require('./routes/patients');
+const countries = require('./routes/countries');
+const provinces = require('./routes/provinces');
+// Port Number
+const port = 3000;
+
+// CORS Middleware
+app.use(cors());
+
+// Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// Body Parser Middleware
+app.use(bodyParser.json());
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+//Passport Middleware
+
+app.use('/users', users);
+app.use('/patients', patients);
+app.use('/countries', countries);
+app.use('/provinces', provinces);
+// Index Route
+app.get('/', (req, res) => {
+  res.send('Invalid Endpoint');
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+// Start Server
+app.listen(port, () => {
+  console.log('Server started on port '+port);
 });
-
-module.exports = app;
