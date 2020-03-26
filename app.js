@@ -25,6 +25,7 @@ const users = require('./routes/users');
 const patients = require('./routes/patients');
 const countries = require('./routes/countries');
 const provinces = require('./routes/provinces');
+const districts = require('./routes/districts');
 // Port Number
 const port = 3000;
 
@@ -43,6 +44,7 @@ app.use('/users', users);
 app.use('/patients', patients);
 app.use('/countries', countries);
 app.use('/provinces', provinces);
+app.use('/districts', districts);
 // Index Route
 app.get('/', (req, res) => {
   res.send('Invalid Endpoint');

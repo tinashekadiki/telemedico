@@ -1,18 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const District = require("../models/District.model");
+const Institution = require("../models/Institution.model");
 const jwt = require("jsonwebtoken");
 
 router.get("/", (req, res) => {
-  res.send("This is just the gateway districts");
+  res.send("This is just the gateway facilities");
 });
 
 router.post("/create", (req, res) => {
-  let district = new District({
+  let institution = new Institution({
     name: req.body.name,
-    province: req.body.province
+    province: req.body.district
   });
-  District.create(district, (err, district) => {
+  Institution.create(institution, (err, institution) => {
     if (err) {
       res.json({
         success: false,
@@ -22,15 +22,15 @@ router.post("/create", (req, res) => {
       res.json({
         success: true,
         district: district,
-        message: "District added"
+        message: "Institution added"
       });
     }
   });
 });
 
 router.get("/index", (req, res) => {
-  District.find({}, function(err, district) {
-    return res.send(JSON.parse(JSON.stringify(district)));
+  Institution.find({}, function(err, institutions) {
+    return res.send(JSON.parse(JSON.stringify(institutions)));
   });
 });
 

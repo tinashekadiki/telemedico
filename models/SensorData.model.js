@@ -5,7 +5,7 @@ const SensorDataSchema = mongoose.Schema({
   patient: {
     type: mongoose.Schema.Types.ObjectId,
     required: false,
-    ref: "User"
+    ref: "Patient"
   },
   temp: {
     type: Number,
@@ -23,7 +23,7 @@ const SensorDataSchema = mongoose.Schema({
   updated_at: { type: Date, default: Date.now }
 });
 
-ContactSchema.pre("save", function(next) {
+SensorDataSchema.pre("save", function(next) {
   now = new Date();
   this.updated_at = now;
   if (!this.created_at) {
@@ -34,6 +34,6 @@ ContactSchema.pre("save", function(next) {
 
 const SensorData = (module.exports = mongoose.model("SensorData", SensorDataSchema));
 
-module.exports.create = function(Contact, callback) {
+module.exports.create = function(SensorData, callback) {
     SensorData.save(callback);
 };

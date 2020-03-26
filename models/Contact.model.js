@@ -15,7 +15,6 @@ const ContactSchema = mongoose.Schema({
     houseNum: String,
     street: String,
     city: String,
-    state: String,
     country: String
   },
   created: { type: Date, default: Date.now },

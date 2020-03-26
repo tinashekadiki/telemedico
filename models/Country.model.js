@@ -14,7 +14,7 @@ const CountrySchema = mongoose.Schema({
   provinces: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Provice"
+      ref: "Province"
     }
   ],
   created: { type: Date, default: Date.now },

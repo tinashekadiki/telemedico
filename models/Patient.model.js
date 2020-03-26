@@ -40,7 +40,7 @@ const PatientSchema = mongoose.Schema({
   updated_at: { type: Date, default: Date.now }
 });
 
-PatientSchema.pre("save", function(next) {
+PatientSchema.pre("save", function (next) {
   now = new Date();
   this.updated_at = now;
   if (!this.created_at) {
@@ -51,6 +51,11 @@ PatientSchema.pre("save", function(next) {
 
 const Patient = (module.exports = mongoose.model("Patient", PatientSchema));
 
-module.exports.create = function(Patient, callback) {
+module.exports.create = function (Patient, callback) {
   Patient.save(callback);
 };
+
+// PatientSchema.query.byId = function(id) {
+//   return this.where({ _id: id });
+//  };
+

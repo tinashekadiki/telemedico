@@ -13,7 +13,7 @@ router.post("/create", (req, res) => {
     name: req.body.name,
     country: req.body.country_id
   });
-  
+
   Province.create(province, (err, province) => {
     if (err) {
       res.json({
@@ -21,21 +21,21 @@ router.post("/create", (req, res) => {
         message: err
       });
     } else {
-      Country.findOne().byId(req.body.country_id).exec(function(err, country) {
+      Country.findOne().byId(req.body.country_id).exec(function (err, country) {
         country.provinces.push(province);
         country.save();
         res.json({
-        success: true,
-        province: province,
-        message: "Province added"
-      });
+          success: true,
+          province: province,
+          message: "Province added"
+        });
       });
     }
   });
 });
 
 router.get("/index", (req, res) => {
-  Province.find({}, function(err, province) {
+  Province.find({}, function (err, province) {
     return res.send(JSON.parse(JSON.stringify(province)));
   });
 });
