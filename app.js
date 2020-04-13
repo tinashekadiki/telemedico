@@ -13,7 +13,7 @@ const patients = require('./routes/patients');
 const countries = require('./routes/countries');
 const provinces = require('./routes/provinces');
 // Port Number
-const port = 8000;
+const port = 8080;
 
 // CORS Middleware
 app.use(cors());
