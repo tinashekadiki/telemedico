@@ -4,20 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
-const config = require('./config/database');
-
-// Connect To Database
-mongoose.connect(config.database);
-
-// On Connection
-mongoose.connection.on('connected', () => {
-  console.log('Connected to database '+config.database);
-});
-
-// On Error
-mongoose.connection.on('error', (err) => {
-  console.log('Database error: '+err);
-});
+const connection = require('./config/database');
 
 const app = express();
 
@@ -25,7 +12,6 @@ const users = require('./routes/users');
 const patients = require('./routes/patients');
 const countries = require('./routes/countries');
 const provinces = require('./routes/provinces');
-const districts = require('./routes/districts');
 // Port Number
 const port = 3000;
 
@@ -44,7 +30,6 @@ app.use('/users', users);
 app.use('/patients', patients);
 app.use('/countries', countries);
 app.use('/provinces', provinces);
-app.use('/districts', districts);
 // Index Route
 app.get('/', (req, res) => {
   res.send('Invalid Endpoint');
