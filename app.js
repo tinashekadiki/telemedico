@@ -1,10 +1,8 @@
 const express = require('express');
-const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const passport = require('passport');
-const mongoose = require('mongoose');
-const connection = require('./config/database');
+require('./config/database');
+require('dotenv').config()
 
 const app = express();
 
@@ -13,13 +11,10 @@ const patients = require('./routes/patients');
 const countries = require('./routes/countries');
 const provinces = require('./routes/provinces');
 // Port Number
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 // CORS Middleware
 app.use(cors());
-
-// Set Static Folder
-app.use(express.static(path.join(__dirname, 'public')));
 
 // Body Parser Middleware
 app.use(bodyParser.json());

@@ -9,12 +9,14 @@
     "dev": "nodemon ./app.js"
   },
   "dependencies": {
-    "express": "*",
-    "mongoose": "*",
+    "axios": "^0.19.2",
     "bcryptjs": "*",
-    "cors": "*",
-    "jsonwebtoken": "*",
     "body-parser": "*",
+    "cors": "*",
+    "dotenv": "^8.2.0",
+    "express": "*",
+    "jsonwebtoken": "*",
+    "mongoose": "*",
     "passport": "*",
     "passport-jwt": "*"
   },
