@@ -19,7 +19,7 @@ router.post("/create", (req, res) => {
         message: err
       });
     } else {
-      res.json({
+      res.status(201).json({
         success: true,
         country: country,
         message: "Country added"
@@ -33,5 +33,14 @@ router.get("/index", (req, res) => {
     return res.send(JSON.parse(JSON.stringify(countries)));
   });
 });
+
+router.get("/:id", (request, response)=>{
+  Country.findById(request.params.id, (err, country)=>{
+    return response.status(200).json({
+      success: true,
+      country: country
+    })
+  });
+})
 
 module.exports = router;

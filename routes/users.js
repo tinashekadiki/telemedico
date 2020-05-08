@@ -1,29 +1,46 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User.model");
-// const passport = require("passport");
-// const jwt = require("jsonwebtoken");
 
 // Register
-router.post("/register", (req, res) => {
-  let newUser = new User({
-    name: req.body.name,
-    email: req.body.email,
-    username: req.body.username,
-    password: req.body.password
+router.post("/register", (request, response) => {
+  let NewUser = new User({
+    name: request.body.name,
+    email: request.body.email,
+    username: request.body.username,
+    password: request.body.password
   });
 
-  User.register(newUser, (err, user) => {
-    if (err) {
-      res.json({
+  User.exists({username: request.body.username}, function (error, ExistingUser) {
+    if(ExistingUser){
+      return response.status(409).json({
         success: false,
-        message: err
-      });
-    } else {
-      res.json({
-        success: true,
-        message: "User Registered successfully",
-        user: user
+        message: "Username already taken"
+        })
+    }else {
+      User.exists({email: request.body.email}, function (error, ExistingUser) {
+        if(ExistingUser){
+          return response.status(409).json({
+            success: false,
+            message: "Email already taken"
+          })
+        }
+        else {
+          User.register(NewUser, (err, user) => {
+            if (err) {
+              response.json({
+                success: false,
+                message: err.message
+              });
+            } else {
+              response.json({
+                success: true,
+                message: "User Registered successfully",
+                user: user
+              });
+            }
+          });
+        }
       });
     }
   });

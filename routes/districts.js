@@ -34,4 +34,13 @@ router.get("/index", (req, res) => {
   });
 });
 
+router.get("/:id", (request, response)=>{
+  District.findById(request.params.id, (err, district)=>{
+    return response.status(200).json({
+      success: true,
+      country: district
+    });
+  });
+});
+
 module.exports = router;

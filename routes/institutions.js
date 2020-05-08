@@ -34,4 +34,13 @@ router.get("/index", (req, res) => {
   });
 });
 
+router.get("/:id", (request, response)=>{
+  Institution.findById(request.params.id, (err, institution)=>{
+    return response.status(200).json({
+      success: true,
+      country: institution
+    })
+  });
+})
+
 module.exports = router;

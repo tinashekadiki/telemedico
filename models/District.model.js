@@ -34,4 +34,4 @@ const District = (module.exports = mongoose.model("District", DistrictSchema));
 
 module.exports.create = function(District, callback) {
     District.save(callback);
-  };
+};
