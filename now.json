@@ -1,0 +1,7 @@
+{
+  "name": "my-mongodb-api",
+  "version": 2,
+  "env": {
+    "MONGODB_URI": "mongodb+srv://medic:telemedico@cluster0-rqxay.mongodb.net/test?retryWrites=true&w=majority"
+  }
+}

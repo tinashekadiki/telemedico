@@ -16,5 +16,5 @@ mongoose.connection.on("connected", () => {
 
 // On Error
 mongoose.connection.on("error", err => {
-  console.log("Database error: " + err);
+  console.log("Blockchain Database Connection error: " + err);
 });

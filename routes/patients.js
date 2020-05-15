@@ -47,7 +47,7 @@ router.get("/:id", (request, response)=>{
   Patient.findById(request.params.id, (err, patient)=>{
     return response.status(200).json({
       success: true,
-      country: patient
+      patient: patient
     })
   });
 })

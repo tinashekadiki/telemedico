@@ -34,21 +34,25 @@ const UserSchema = mongoose.Schema({
     type: String,
     default: null
   },
+  timestamps: {},
   created: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now }
 });
 
 const User = (module.exports = mongoose.model("User", UserSchema));
 
-module.exports.getUserByID = function(id, callback) {
-  return User.findById(id, callback);
-};
-
 module.exports.getUserByUsername = function(username, callback) {
   let query = { username: username };
   return User.findOne(query, callback);
 };
 
+module.exports.comparePassword = function(candidatePassword, cb) {
+  bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
+    if (err) return cb(err);
+    return isMatch;
+  });
+  return false;
+};
 module.exports.register = function(NewUser, callback) {
   axios.post(process.env.XOOA_URL+'identities/',
       {
