@@ -10,6 +10,8 @@ const users = require('./routes/users');
 const patients = require('./routes/patients');
 const countries = require('./routes/countries');
 const provinces = require('./routes/provinces');
+const history = require('./routes/history');
+const sensors = require('./routes/sensors');
 // Port Number
 const port = process.env.PORT || 8080;
 
@@ -23,11 +25,13 @@ app.use(bodyParser.json());
 
 app.use('/users', users);
 app.use('/patients', patients);
+app.use('/history', history);
 app.use('/countries', countries);
 app.use('/provinces', provinces);
+app.use('/sensors', sensors);
 // Index Route
 app.get('/', (req, res) => {
-  res.send('Invalid Endpoint');
+  res.send("Well done, this project is in active development, I will definitely share with you the endpoints for the alpha version of the system! Thank you! <br> For any information contact the developer <a href=\"mailto:tinashe.kadiki@uofz.ac.zw\">Kadiki</a>");
 });
 
 // Start Server
