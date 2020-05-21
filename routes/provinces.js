@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
 router.post("/create", (req, res) => {
   let province = new Province({
     name: req.body.name,
-    country: req.body.country_id
+    country: req.body.country
   });
 
   Province.create(province, (err, province) => {
