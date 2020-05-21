@@ -13,7 +13,7 @@ router.post("/create", (req, res) => {
     name: req.body.name,
     country: req.body.country
   });
-
+  // console.log(province);
   Province.create(province, (err, province) => {
     if (err) {
       res.json({
@@ -21,8 +21,7 @@ router.post("/create", (req, res) => {
         message: err
       });
     } else {
-      Country.findOne().byId(req.body.country_id).exec(function (err, country) {
-        country.provinces.push(province);
+      Country.findById(req.body.country,  (err, country) =>{
         country.save();
         res.json({
           success: true,

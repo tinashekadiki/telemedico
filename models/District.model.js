@@ -11,12 +11,7 @@ const DistrictSchema = mongoose.Schema({
     required: true,
     ref: 'Province'
   },
-  institutions: [
-      {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Institution"
-      }
-  ],
+
   created: {type: Date, default: Date.now},
   updated_at: {type: Date, default: Date.now}
 });

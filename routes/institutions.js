@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
 router.post("/create", (req, res) => {
   let institution = new Institution({
     name: req.body.name,
-    province: req.body.district
+    district: req.body.district
   });
   Institution.create(institution, (err, institution) => {
     if (err) {
@@ -21,7 +21,7 @@ router.post("/create", (req, res) => {
     } else {
       res.json({
         success: true,
-        district: district,
+        institution: institution,
         message: "Institution added"
       });
     }
