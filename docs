@@ -1,0 +1,615 @@
+openapi: 3.0.1
+info:
+  title: TelemedicoAPI
+  description: An API documentation for the blockchain based health information system. An experimentation by **Tinashe Kadiki** <tinashe.kadiki@uofz.ac.zw>. Thank you for checking it out.
+  version: '0.1'
+  contact:
+    name: Tinashe Kadiki
+    email: tinashe.kadiki@uofz.ac.zw
+    url: http://telemedico.herokuapp.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: 'http://telemedico.herokuapp.com'
+paths:
+  /users/register:
+    post:
+      description: Simple user registration. Next step is to capture patient details.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                name:
+                  type: string
+                email:
+                  type: string
+                username:
+                  type: string
+            examples:
+              '0':
+                value: |-
+                  {
+                    "name":"Tinashe",
+                    "email":"test.user@gmail.com",
+                    "username":"test",
+                    "password":"password"
+                  }
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+        - url: 'http://telemedico.herokuapp.com'
+    servers:
+      - url: 'http://telemedico.herokuapp.com'
+  /users/authenticate:
+    post:
+      description: User login using username and password.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                username:
+                  type: string
+            examples:
+              '0':
+                value: |-
+                  {
+                    "username": "tinashe2",
+                    "password": "password"
+                  }
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+        - url: 'http://telemedico.herokuapp.com'
+    servers:
+      - url: 'http://telemedico.herokuapp.com'
+  /patients/create:
+    post:
+      description: Saving patient details.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                national_id:
+                  type: string
+                gender:
+                  type: string
+                birth_date:
+                  type: string
+                contact:
+                  type: object
+                  properties:
+                    city:
+                      type: string
+                    street:
+                      type: string
+                    latitude:
+                      type: string
+                    phone_number:
+                      type: string
+                    email:
+                      type: string
+                    longitude:
+                      type: string
+                last_name:
+                  type: string
+                first_name:
+                  type: string
+                user:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+            examples:
+              '0':
+                value: |-
+                  {
+                    "first_name":"Test",
+                    "last_name":"User",
+                    "national_id":"47-123123A01",
+                    "birth_date":"08/08/1999",
+                    "gender":"M",
+                    "contact":{
+                      "street":"123 Prof Street",
+                      "city": "Juru",
+                      "latitude": "31.8",
+                      "longitude": "17.5",
+                      "email":"tinashe@gmail.com",
+                      "phone_number":"263778191521"
+                    },
+                    "user":{
+                      "id":"5eb3c998d4db6b52ddc8d237"
+                    }
+                  }
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+        - url: 'http://telemedico.herokuapp.com'
+    servers:
+      - url: 'http://telemedico.herokuapp.com'
+  /sensors/data/{sensor_id}:
+    get:
+      description: Getting usable sensor data using {sensor_id}.
+      parameters:
+        - name: sensor_id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: >-
+            5ec665b804b7251f00c0861c
+        - name: x-access-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlYjNjOTk4ZDRkYjZiNTJkZGM4ZDIzNyIsImlhdCI6MTU4OTg4NTE0OCwiZXhwIjoxNTkwNDg5OTQ4fQ.qvi_icmQJRLIt8p15DYFjCJK-e82ga1bpoTCMTbKHuQ
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+        - url: 'http://telemedico.herokuapp.com'
+    servers:
+      - url: 'http://telemedico.herokuapp.com'
+  /provinces/create:
+    post:
+      description: Create a province.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                country:
+                  type: string
+                name:
+                  type: string
+            examples:
+              '0':
+                value: |-
+                  {
+                    "name":"Mash East",
+                    "country": "5eb450c546da495580ec1098"
+                  }
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+        - url: 'http://telemedico.herokuapp.com'
+    servers:
+      - url: 'http://telemedico.herokuapp.com'
+  /countries/create:
+    post:
+      description: Save country details.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                continent:
+                  type: string
+                name:
+                  type: string
+            examples:
+              '0':
+                value: |-
+                  {
+                    "name":"ZW",
+                    "continent":"Africa"
+                  }
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+        - url: 'http://telemedico.herokuapp.com'
+    servers:
+      - url: 'http://telemedico.herokuapp.com'
+  /users/profile:
+    get:
+      description: Authenticated user profile.
+      parameters:
+        - name: x-access-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlYjNjOTk4ZDRkYjZiNTJkZGM4ZDIzNyIsImlhdCI6MTU4OTg4NTE0OCwiZXhwIjoxNTkwNDg5OTQ4fQ.qvi_icmQJRLIt8p15DYFjCJK-e82ga1bpoTCMTbKHuQ
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+        - url: 'http://telemedico.herokuapp.com'
+    servers:
+      - url: 'http://telemedico.herokuapp.com'
+  /institutions/create:
+    post:
+      description: Save institution data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                district:
+                  type: string
+                name:
+                  type: string
+            examples:
+              '0':
+                value: |-
+                  {
+                    "name":"Goromonzi Rural Healthcare Center",
+                    "district": "5eb450c546da495580ec1098"
+                  }
+      responses:
+        '200':
+          description: Ok
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+        - url: 'http://telemedico.herokuapp.com'
+    servers:
+      - url: 'http://telemedico.herokuapp.com'
+  /sensors/create:
+    post:
+      description: Save sensor data
+      parameters:
+        - name: x-access-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlYjNjOTk4ZDRkYjZiNTJkZGM4ZDIzNyIsImlhdCI6MTU4OTg4NTE0OCwiZXhwIjoxNTkwNDg5OTQ4fQ.qvi_icmQJRLIt8p15DYFjCJK-e82ga1bpoTCMTbKHuQ
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                seizure:
+                  type: boolean
+                device_id:
+                  type: string
+                patient:
+                  type: string
+                temperature:
+                  type: number
+                pulse:
+                  type: integer
+                location:
+                  type: object
+                  properties:
+                    latitude:
+                      type: string
+                    longitude:
+                      type: string
+            examples:
+              '0':
+                value: |-
+                  {
+                    "patient":"5eb5544678d8a353c0fcd2f3",
+                    "temperature":36.44,
+                    "pulse":77,
+                    "device_id": "2",
+                    "seizure":false,
+                    "location": {
+                      "latitude": "31.8",
+                      "longitude": "17.5"
+                    }
+                  }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+        - url: 'http://telemedico.herokuapp.com'
+    servers:
+      - url: 'http://telemedico.herokuapp.com'
+  /institutions/index:
+    get:
+      description: List of institutions
+      responses:
+        '200':
+          description: Ok
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+        - url: 'http://telemedico.herokuapp.com'
+    servers:
+      - url: 'http://telemedico.herokuapp.com'
+  /countries/index:
+    get:
+      description: List of countries.
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+        - url: 'http://telemedico.herokuapp.com'
+    servers:
+      - url: 'http://telemedico.herokuapp.com'
+  /provinces/index:
+    get:
+      description: Auto generated using Swagger Inspector
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+        - url: 'http://telemedico.herokuapp.com'
+    servers:
+      - url: 'http://telemedico.herokuapp.com'
+  /districts/create:
+    post:
+      description: Create a district
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                province:
+                  type: string
+                name:
+                  type: string
+            examples:
+              '0':
+                value: |-
+                  {
+                    "name":"Goromonzi",
+                    "province": "test"
+                  }
+      responses:
+        '200':
+          description: Ok
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+        - url: 'http://telemedico.herokuapp.com'
+    servers:
+      - url: 'http://telemedico.herokuapp.com'
+  /districts/index:
+    get:
+      description: List of districts
+      responses:
+        '200':
+          description: Ok
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+        - url: 'http://telemedico.herokuapp.com'
+    servers:
+      - url: 'http://telemedico.herokuapp.com'
+  /patients/{patient_id}:
+    get:
+      description: Single patient details.
+      parameters:
+        - name: patient_id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: >-
+            5ec665b804b7251f00c0861c
+        - name: x-access-token
+          required: true
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlYjNjOTk4ZDRkYjZiNTJkZGM4ZDIzNyIsImlhdCI6MTU4OTg4NTE0OCwiZXhwIjoxNTkwNDg5OTQ4fQ.qvi_icmQJRLIt8p15DYFjCJK-e82ga1bpoTCMTbKHuQ
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+        - url: 'http://telemedico.herokuapp.com'
+    servers:
+      - url: 'http://telemedico.herokuapp.com'
+  /history/{patient_id}:
+    get:
+      description: Auto generated using Swagger Inspector
+      parameters:
+        - name: patient_id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: >-
+            5eb5544678d8a353c0fcd2f3
+        - name: x-access-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlYjNjOTk4ZDRkYjZiNTJkZGM4ZDIzNyIsImlhdCI6MTU4OTg4NTE0OCwiZXhwIjoxNTkwNDg5OTQ4fQ.qvi_icmQJRLIt8p15DYFjCJK-e82ga1bpoTCMTbKHuQ
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+        - url: 'http://telemedico.herokuapp.com'
+    servers:
+      - url: 'http://telemedico.herokuapp.com'
+  /sensors/{patient_id}:
+    get:
+      description: Auto generated using Swagger Inspector
+      parameters:
+        - name: patient_id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: >-
+            5eb5544678d8a353c0fcd2f3
+        - name: x-access-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlYjNjOTk4ZDRkYjZiNTJkZGM4ZDIzNyIsImlhdCI6MTU4OTg4NTE0OCwiZXhwIjoxNTkwNDg5OTQ4fQ.qvi_icmQJRLIt8p15DYFjCJK-e82ga1bpoTCMTbKHuQ
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+        - url: 'http://telemedico.herokuapp.com'
+    servers:
+      - url: 'http://telemedico.herokuapp.com'
+  /history/create:
+    post:
+      description: Auto generated using Swagger Inspector
+      parameters:
+        - name: x-access-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlYjNjOTk4ZDRkYjZiNTJkZGM4ZDIzNyIsImlhdCI6MTU4OTg4NTE0OCwiZXhwIjoxNTkwNDg5OTQ4fQ.qvi_icmQJRLIt8p15DYFjCJK-e82ga1bpoTCMTbKHuQ
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                condition:
+                  type: object
+                  properties:
+                    symptoms:
+                      type: array
+                      items:
+                        type: string
+                    name:
+                      type: string
+                    description:
+                      type: string
+                patient:
+                  type: string
+                location:
+                  type: object
+                  properties:
+                    latitude:
+                      type: string
+                    name:
+                      type: string
+                    longitude:
+                      type: string
+            examples:
+              '0':
+                value: |-
+                  {
+                    "patient":"5eb5544678d8a353c0fcd2f3",
+                    "condition": {
+                      "name":"hypertension",
+                      "description":"High blood pressure",
+                      "symptoms": ["head-ache", "unease"]
+                    },
+                    "location": {
+                      "name": "Murewa Hospital",
+                      "latitude": "31.8",
+                      "longitude": "17.5"
+                    }
+                  }
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+        - url: 'http://telemedico.herokuapp.com'
+    servers:
+      - url: 'http://telemedico.herokuapp.com'
+externalDocs:
+  description: Telemedico Docs
+  url: http://telemedico.herokuapp.com
+tags:
+  - name: Blockchain
+  - name: REST
