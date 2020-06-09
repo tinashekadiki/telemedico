@@ -39,10 +39,10 @@ router.get("/:patient", (req, res, next) => {
 
 
 router.get("/data/:data_id", (req, res, next) => {
-    // SensorData.find({ patient: req.params.patient, id }, function (err, sensor_data) {
-    //     return res.send(JSON.parse(JSON.stringify(sensor_data)));
-    // })
     SensorData.findById(req.params.data_id, (err, sensor_data)=>{
+        if(err){
+            return res.json({error: err})
+        }
         SensorData.data(sensor_data, (data, error)=>{
             res.status(200).json({
                 success: true,

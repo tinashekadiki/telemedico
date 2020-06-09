@@ -36,6 +36,9 @@ router.get("/index", (req, res) => {
 
 router.get("/:id", (request, response)=>{
   Country.findById(request.params.id, (err, country)=>{
+    if(err){
+      return response.json({error: err})
+    }
     return response.status(200).json({
       success: true,
       country: country

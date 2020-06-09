@@ -36,6 +36,9 @@ router.get("/index", (req, res) => {
 
 router.get("/:id", (request, response)=>{
   District.findById(request.params.id, (err, district)=>{
+    if(err){
+      return response.json({error: err})
+    }
     return response.status(200).json({
       success: true,
       country: district

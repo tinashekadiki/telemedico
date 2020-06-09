@@ -44,6 +44,9 @@ router.get("/index", (req, res) => {
 
 router.get("/:id", (request, response)=>{
   Patient.findById(request.params.id, (err, patient)=>{
+    if(err){
+      return response.json({error: err})
+    }
     return response.status(200).json({
       success: true,
       patient: patient

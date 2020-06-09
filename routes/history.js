@@ -40,6 +40,9 @@ router.post("/create", (req, res, next) => {
 
 router.get("/:patient", (req, res, next) => {
     MedicalHistory.find({ patient: req.params.patient }, function (err, medical_history) {
+        if(err){
+            return res.json({error: err})
+        }
         return res.send(JSON.parse(JSON.stringify(medical_history)));
     })
 });
